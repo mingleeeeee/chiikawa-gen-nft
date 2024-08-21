@@ -103,3 +103,13 @@ body{
           margin-top: 5px;
           text-align: right;
       }
+
+      #Neon-button {
+        margin-bottom: 16px;
+        color: #eb874b;
+      }
+      
+      #Neon-button img {
+        width: 36px;
+        margin-right: 16px;
+      }

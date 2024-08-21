@@ -5,6 +5,7 @@ const reloadButton = document.getElementById("reloadButton");
 const installAlert = document.getElementById("installAlert");
 const mobileDeviceWarning = document.getElementById("mobileDeviceWarning");
 //const IPA_button = document.getElementById('IPA-button');
+const Neon_button = document.getElementById('Neon-button');
 const mintButton = document.getElementById('mintButton'); // Assuming you have a mint button
 
 const startLoading = () => {
@@ -45,7 +46,7 @@ connectButton.addEventListener("click", () => {
       .then((accounts) => {
         account = accounts[0];
         walletID.innerHTML = `Wallet connected: <span>${account}</span>`;
-        //IPA_button.style.visibility = 'visible';
+        Neon_button.style.visibility = 'visible';
         stopLoading();
       })
       .catch((error) => {
@@ -61,4 +62,39 @@ connectButton.addEventListener("click", () => {
       installAlert.classList.add("show");
     }
   }
+});
+
+let isGenerating = false;
+
+// Check if wallet is connected and show the mint button when a new image is generated
+async function checkWalletConnection() {
+    if (typeof window.ethereum !== 'undefined') {
+        const accounts = await ethereum.request({ method: 'eth_accounts' });
+        if (accounts.length > 0) {
+            document.getElementById('walletID').textContent = `Connected: ${accounts[0]}`;
+            walletConnected = true;
+        } else {
+            document.getElementById('walletID').textContent = 'Your wallet is not connected yet.';
+            walletConnected = false;
+        }
+    } else {
+        document.getElementById('walletID').textContent = 'MetaMask is not installed.';
+        walletConnected = false;
+    }
+}
+
+// Connect wallet button
+document.getElementById('connectButton').addEventListener('click', async () => {
+    if (typeof window.ethereum !== 'undefined') {
+        try {
+            const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+            document.getElementById('walletID').textContent = `Connected: ${accounts[0]}`;
+            walletConnected = true;
+        } catch (error) {
+            console.error('User rejected the request.');
+            walletConnected = false;
+        }
+    } else {
+        document.getElementById('walletID').textContent = 'MetaMask is not installed.';
+    }
 });

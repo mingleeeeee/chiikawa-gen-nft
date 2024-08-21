@@ -9,6 +9,27 @@
     <link rel="stylesheet" href="css/IPregister.css">
     <script src="https://unpkg.com/konva@8.0.2/konva.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        /* Center the image and text within the container */
+.token-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.token-link {
+    margin-left: 10px;
+    font-size: 1.2em;
+    color: #000; /* Adjust the color if necessary */
+    text-decoration: none;
+}
+
+.token-link:hover {
+    text-decoration: underline;
+}
+
+    </style>
 </head>
 <body>
     <!-- url button to publish-->
@@ -19,8 +40,9 @@
             <img src="image/metamask.png" alt="metamask logo" width="20px" style="margin-right: 5px;" /> Connect wallet
         </button>
         <div id="walletID">Your wallet is not connected yet.</div>
+      
     </div>
-
+    <div></div>
     <div class="container" style="margin-top: 100px;">
         <h1>ちいかわ</h1>
     </div>
@@ -38,10 +60,21 @@
     </div>
 
     <div class="container" style="text-align: center;">
-        <h4>Left-click three times on the canvas and drag to start creating a mask.<br>Use mouse wheel to change the circle size.<br>Confirm the mask selection and type in prompt to generate a new image.<br>Enjoy creating pics!</h4>
+        <h4>
+            Left-click three times on the canvas and drag to start creating a mask.<br>
+            Use mouse wheel to change the circle size.<br>
+            Confirm the mask selection and type in prompt to generate a new image.<br>
+            Enjoy creating pics!
+
+            <div class="token-container" style="visibility: hidden;" id="Neon-button">
+                <img src="image/neon.png" alt="neon logo" width="60px" style="margin-right: 5px;" /> 
+                <a href="https://neonfaucet.org/" target="_blank" class="token-link">Get Free Token ♡</a>
+            </div>
+        </h4>
+       
     </div>
 
-    <div class="container" style="margin-top: 30px;">
+    <div class="container" style="margin-top: 0px;">
         <textarea id="textBox" placeholder="Enter text here..."></textarea>
     </div>
 
@@ -52,43 +85,6 @@
     <div class="container" style="margin-top: 20px;">
         <button id="mintButton" disabled>Mint your NFT :D</button> <!-- The mint button that shows up after generating an image -->
     </div>
-
-    <script>
-        let isGenerating = false;
-
-        // Check if wallet is connected and show the mint button when a new image is generated
-        async function checkWalletConnection() {
-            if (typeof window.ethereum !== 'undefined') {
-                const accounts = await ethereum.request({ method: 'eth_accounts' });
-                if (accounts.length > 0) {
-                    document.getElementById('walletID').textContent = `Connected: ${accounts[0]}`;
-                    walletConnected = true;
-                } else {
-                    document.getElementById('walletID').textContent = 'Your wallet is not connected yet.';
-                    walletConnected = false;
-                }
-            } else {
-                document.getElementById('walletID').textContent = 'MetaMask is not installed.';
-                walletConnected = false;
-            }
-        }
-
-        // Connect wallet button
-        document.getElementById('connectButton').addEventListener('click', async () => {
-            if (typeof window.ethereum !== 'undefined') {
-                try {
-                    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-                    document.getElementById('walletID').textContent = `Connected: ${accounts[0]}`;
-                    walletConnected = true;
-                } catch (error) {
-                    console.error('User rejected the request.');
-                    walletConnected = false;
-                }
-            } else {
-                document.getElementById('walletID').textContent = 'MetaMask is not installed.';
-            }
-        });
-    </script>
 
     <!-- Canvas and Mask Creation Script -->
     <script src="js/mask.js"></script>
