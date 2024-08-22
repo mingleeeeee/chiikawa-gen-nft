@@ -32,7 +32,6 @@ const RPCProviderUrl = 'https://devnet.neonevm.org';
 const provider = new ethers_1.ethers.providers.JsonRpcProvider(RPCProviderUrl);
 const contractAddress = '0x4B72dc1Ca2Aa8D36e2022Ea4Ded348B818D8c664'; // The deployed contract address
 const memeContract = new ethers_1.ethers.Contract(contractAddress, Meme_json_1.default.abi, provider);
-let accountAddress = null; // Global variable to store the account address
 app.use((0, cors_1.default)());
 app.use(body_parser_1.default.json({ limit: '10mb' }));
 app.use(express_1.default.static(path_1.default.join(__dirname, '../public')));

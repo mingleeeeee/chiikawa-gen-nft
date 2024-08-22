@@ -1,4 +1,4 @@
-# Chiikawa Gen NFT
+# Total Eclipse Challenge
 
 ### setup
 1. `npm install` <br>
